@@ -1,0 +1,14 @@
+{
+  "name": "drag_and_drop",
+  "version": "1.0.0",
+  "main": "index.html",
+  "repository": "git@github.com:felipecarvalhogodoi98/drag_and_drop.git",
+  "author": "felipecarvalhogodoi98 <felipecarvalhogodoi98@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "http-server -c-1 ./src"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}
