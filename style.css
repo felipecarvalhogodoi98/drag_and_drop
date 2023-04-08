@@ -1,3 +1,4 @@
+/* Styles */
 * {
   margin: 0;
   padding: 0;
@@ -5,7 +6,7 @@
 }
 
 :root {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 
 body {
@@ -13,33 +14,98 @@ body {
   color: #fff;
 }
 
-.boards {
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #fd651fcc;
+  padding: 0;
+}
+
+button:before,
+button:after {
+  background-color: #fd651fcc;
+  box-shadow: 0 0 2px 0 #ccc;
+  color: #fd951f;
+}
+
+button:hover::after,
+button:hover::before {
+  background-color: #fd951f;
+}
+
+/* Board */
+.board {
   display: flex;
   gap: 16px;
   padding: 32px;
 }
 
-.boards .board {
+.board .column {
   background-color: #141316;
   border: 1px solid #fd951f;
   border-radius: 4px;
-
 
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.board h3 {
+.column h3 {
   padding: 16px;
   color: #fd951fcc;
 }
 
-.board .dropzone {
+.column .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.open-add-card {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  margin: 16px;
+}
+
+.open-add-card::after {
+  content: " ";
+
+  display: block;
+  background-color: #fd651fcc;
+  height: 3px;
+  border-radius: 2px;
+
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.open-add-card::before {
+  content: " ";
+
+  display: block;
+  background-color: #fd651fcc;
+  width: 2px;
+  border-radius: 4px;
+
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+.column .dropzone {
   padding: 16px;
   margin-bottom: 16px;
   min-width: 282px;
   min-height: 200px;
+  height: 100%;
 }
 
 .card {
@@ -47,16 +113,29 @@ body {
   box-shadow: 0 2px 2px -1px #fd651fcc;
   width: 250px;
   border-radius: 4px;
-  font-weight: 700;
-  font-size: 18px;
+
   background-color: #1a1a1c;
 }
 
-.card+.card {
+.card .content {
+  font-size: 18px;
+  font-weight: 700;
+
+  max-height: 130px;
+  overflow: hidden;
+}
+
+.card .description {
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+.card + .card {
   margin-top: 25px;
 }
 
-.status {
+.epic {
   width: 30px;
   height: 8px;
   background: gray;
@@ -64,15 +143,15 @@ body {
   border-radius: 8px;
 }
 
-.status.blue {
+.epic.blue {
   background-color: #22adff;
 }
 
-.status.green {
+.epic.green {
   background-color: #23d2ac;
 }
 
-.status.red {
+.epic.red {
   background-color: red;
 }
 
@@ -80,8 +159,9 @@ body {
   background-color: #fd951f08;
 }
 
-.card, .dropzone {
-  transition: .4s;
+.card,
+.dropzone {
+  transition: 0.4s;
 }
 
 .is-dragging {
@@ -91,4 +171,212 @@ body {
 
 .over {
   background-color: #4cd13711;
+}
+
+/* Modal */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #000000a6;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  transform: translate(-50%, -50%);
+  background-color: #141316;
+  border-radius: 4px;
+  padding: 32px;
+  width: 100%;
+  max-width: 400px;
+  min-height: 400px;
+  max-height: 90vh;
+  border-radius: 8px;
+  overflow-y: auto;
+}
+
+.modal,
+.overlay {
+  opacity: 1;
+  transition: all 150ms ease-in-out;
+}
+
+.modal .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.modal .header .title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fd951f;
+}
+
+.modal .close-modal {
+  height: 20px;
+  width: 20px;
+  position: relative;
+}
+
+.modal .close-modal:before,
+.modal .close-modal:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  top: 12px;
+}
+
+.modal .close-modal:before {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  transform: rotate(45deg);
+  top: 8px;
+  left: 0;
+}
+
+.modal .close-modal:after {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  top: 8px;
+  left: 0px;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+/* Modal content */
+.modal .content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.modal .content > div {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+  flex: 1;
+}
+
+.modal .title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.modal .description {
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.modal .remove-card {
+  width: min-content;
+  color: #fff;
+  background-color: #fd951fcc;
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin: auto auto 0;
+}
+
+.modal .remove-card:hover {
+  background-color: #fd951f;
+}
+
+/* Form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+  border: 0;
+  outline: 0;
+  color: #fff;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+select:focus {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+textarea {
+  overflow: auto;
+  vertical-align: top;
+  resize: none;
+}
+
+input[type="text"] {
+  display: block;
+  width: 100%;
+  margin: 0 0 20px;
+  padding: 8px 12px 10px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+select {
+  display: block;
+  width: 100%;
+  margin: 0 0 20px;
+  padding: 8px 12px 10px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+option {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+textarea {
+  display: block;
+  width: 100%;
+  height: 150px;
+  margin: 0 0 20px;
+  padding: 8px 12px 10px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+input[type="submit"] {
+  display: block;
+  width: 150px;
+  margin: 0 auto 20px;
+  padding: 8px 0 10px 0;
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.25);
+  transition: all 150ms;
+}
+
+input[type="submit"]:hover {
+  background: rgba(0, 0, 0, 0.5);
 }

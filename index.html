@@ -15,38 +15,41 @@
   <body>
     <div id="app"></div>
 
-    <div class="boards">
-      <div class="board">
-        <h3>Todo</h3>
-        <div class="dropzone">
-          <div class="card" draggable="true">
-            <div class="status green"></div>
-            <div class="content">CSS</div>
-          </div>
+    <div class="board">
+      <div class="column" data-column="to-do">
+        <div class="header">
+          <h3>Todo</h3>
+          <button class="open-add-card"></button>
         </div>
+        <div class="dropzone"></div>
       </div>
 
-      <div class="board">
+      <div class="column" data-column="in-progress">
         <h3>In progress</h3>
-        <div class="dropzone">
-          <div class="card" draggable="true">
-            <div class="status blue"></div>
-            <div class="content">HTML</div>
-          </div>
-        </div>
+        <div class="dropzone"></div>
       </div>
 
-      <div class="board">
+      <div class="column" data-column="done">
         <h3>Done</h3>
         <div class="dropzone">
-          <div class="card" draggable="true">
+          <!-- <div class="card" draggable="true">
             <div class="status red"></div>
             <div class="content">Environment</div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
 
-    <script src="script.js" defer></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "modal": "./modules/modal.js",
+          "board": "./modules/board.js",
+          "card": "./modules/card.js",
+          "utils": "./modules/utils.js"
+        }
+      }
+    </script>
+    <script src="main.js" type="module"></script>
   </body>
 </html>
